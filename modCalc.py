@@ -3,7 +3,8 @@
 import math
 import keyword
 import random
-from types import *
+import tkinter
+import _tkinter
 from tkinter import *
 
 
@@ -25,8 +26,8 @@ def EulerGroup(x):
     if x == 1:
         return 1
     else:
-        for a in range(1,x):
-            if coprime(x,a):
+        for a in range(1, x):
+            if coprime(x, a):
                 phiGroup.append(a)
     #print (phiGroup)
     return phiGroup
@@ -57,6 +58,12 @@ def modExponent(num1,num2,num3):
     # we know that Eulers Totient is always even
     # we also know the group proeprty using Chinese remainder Theorem that any number raised to the number of objects in the group
     # will give us 1.
+    num1 = num1.get()
+    num2 = num2.get()
+    num3 = num3.get()
+    num1 = int(num1)
+    num2 = int(num2)
+    num3 = int(num3)
     val = num2 - EulerTot(num3)
     if val >= 0:
         for i in range(0,len(primefactor(num2))):
@@ -79,5 +86,46 @@ def multInverse(num1,num2):
         else:
             continue
 
+def click():
+    list1 = []
+
+
+
 def main():
-    print("******************** MODULO ARITHMETIC MADE EASY**********************")
+    window = Tk() # creating a window
+    window.title("MODULO ARITHMETIC MADE EASY") # title of the windows
+    window.configure(background = "white")
+    # Photos
+    pic1 = PhotoImage(file="xamodp.png")
+    Label(window, image=pic1, bg="white").grid(row=0, column=5, sticky=E)
+
+    # Create a label
+    Label(window, text="Please Enter x, a and p as shown in the figure", bg="white", fg="Black", font="12").grid(row=1, column=0, sticky=E)
+
+    x = Entry(window, width=20, text="x = ", font="12", fg="Black")
+    x.grid(row=2, column=0, sticky=E)
+
+    #x = int(x.get())
+
+    a = Entry(window, width=20, text="a = ", font="12", fg="Black")
+    a.grid(row=3, column=0, sticky=E)
+    #a = int(a.get())
+    p = Entry(window, width=20, text="p = ", font="12", fg="Black")
+    p.grid(row=4, column=0, sticky=E)
+    #p = int(p.get())
+
+
+    # add a submit buttton
+    button1 = window.Button(window, Text="Submit", width="10", command=click).get()
+
+   # result = modExponent(x, a, p)
+
+
+
+
+
+
+    window.mainloop()
+
+if __name__ == "__main__":
+    main()
