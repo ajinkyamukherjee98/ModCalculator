@@ -6,6 +6,7 @@ import random
 import tkinter
 import _tkinter
 from tkinter import *
+import tkinter as tk
 
 
 def HCF(num1,num2):
@@ -74,6 +75,7 @@ def modExponent(num1,num2,num3):
             power = primefactor(num2)
             num1 = pow(num1,power[y]) % num3
             #print(power)
+    print(num1)
     return num1
 
 # Function to generate Multiplicative Modulo inverse of a number
@@ -86,13 +88,9 @@ def multInverse(num1,num2):
         else:
             continue
 
-def click():
-    list1 = []
-
-
 
 def main():
-    window = Tk() # creating a window
+    window = tk.Tk() # creating a window
     window.title("MODULO ARITHMETIC MADE EASY") # title of the windows
     window.configure(background = "white")
     # Photos
@@ -109,6 +107,8 @@ def main():
 
     a = Entry(window, width=20, text="a = ", font="12", fg="Black")
     a.grid(row=3, column=0, sticky=E)
+    a.get()
+    print(a.get())
     #a = int(a.get())
     p = Entry(window, width=20, text="p = ", font="12", fg="Black")
     p.grid(row=4, column=0, sticky=E)
@@ -116,7 +116,7 @@ def main():
 
 
     # add a submit buttton
-    button1 = window.Button(window, Text="Submit", width="10", command=click).get()
+    bt = tk.Button(window, text="Submit", width="10", fg="Black", command=lambda: modExponent(x,a,p)).grid(row=7, column=0, sticky=E)
 
    # result = modExponent(x, a, p)
 
