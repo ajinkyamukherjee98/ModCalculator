@@ -1,14 +1,17 @@
 
 
 import math
-import keyword
-import random
-import tkinter
-import _tkinter
 from tkinter import *
 import tkinter as tk
 
+window = tk.Tk() # creating a window
+#window.geometry('800X600 + 400 + 300')
+window.title("MODULO ARITHMETIC MADE EASY") # title of the windows
+window.configure(background="white")
 
+
+output = Text(window,width=75,height=6,wrap=WORD, background="White")
+output.grid(row=9, column=0,columnspan=2, sticky=W)
 def HCF(num1,num2):
     if num1<num2:
         return HCF(num2,num1)
@@ -32,10 +35,11 @@ def EulerGroup(x):
                 phiGroup.append(a)
     #print (phiGroup)
     return phiGroup
+
+# Function that returns the length of the current Euler Group
 def EulerTot(num):
+    print("Th eEuler length is: "+ str(len(EulerGroup(num))))
     return len(EulerGroup(num))
-
-
 
 # Function to Calculate Prime Factors of a number and store them in a list
 #factorList is the list that stores all its prime factors in the list
@@ -53,6 +57,18 @@ def primefactor(n):
 
     return factorlist
 
+
+def multipleOf(a, b):
+    #res = 1
+    for i in range (1, a):
+        tot = b*i
+        if a % tot == 0:
+            return True
+        else:
+            return False
+
+
+
 # Function to do Modulo arithmetic as per the cryptographic rules
 # Modulo Exponnentitaion 
 def modExponent(num1,num2,num3): 
@@ -65,17 +81,41 @@ def modExponent(num1,num2,num3):
     num1 = int(num1)
     num2 = int(num2)
     num3 = int(num3)
-    val = num2 - EulerTot(num3)
-    if val >= 0:
-        for i in range(0,len(primefactor(num2))):
-            power = primefactor(val)
-            num1= pow(num1,power[i]) % num3
-    else:
-        for y in range(0,len(primefactor(num2))):
-            power = primefactor(num2)
-            num1 = pow(num1,power[y]) % num3
-            #print(power)
-    print(num1)
+
+    power = primefactor(num2)
+    for i in range(0, len(power)):
+        # power = primefactor((num2))
+        num1 = pow(num1, power[i]) % num3
+    print("Else: " + str(num1))
+
+
+    ## This code can be uncommented when using Chinese remainer theroem to find RSA Values
+    ## An important group property: for any finite group G of order n, and g is any object of G, g**n =1
+    ##if num2 >= EulerTot(num3):
+      ##  tot = multipleOf(num2, EulerTot(num3))
+       ## if tot == 1:
+         ##   num1 = 1
+           ## val = 0
+
+        ##else:
+         ##   val = num2 - math.floor(num2 / EulerTot(num2))
+           ## for i in range(0, len(primefactor(val))):
+             ##   power = primefactor(val)
+               ## num1 = pow(num1, power[i]) % num3
+            ##print("IF2: " + str(num1))
+    ##else:
+      ##  power = primefactor(num2)
+        ##for i in range(0, len(power)):
+          ##  # power = primefactor((num2))
+            ##num1 = pow(num1, power[i]) % num3
+        ##print("Else: " + str(num1))
+
+    ##
+
+
+
+    output.delete(0.0, END)
+    output.insert(END, num1)
     return num1
 
 # Function to generate Multiplicative Modulo inverse of a number
@@ -88,11 +128,11 @@ def multInverse(num1,num2):
         else:
             continue
 
+def printMod(num1,num2,num3):
+    print(" The result is: "+ str(modExponent(num1,num2,num3)))
 
 def main():
-    window = tk.Tk() # creating a window
-    window.title("MODULO ARITHMETIC MADE EASY") # title of the windows
-    window.configure(background = "white")
+
     # Photos
     pic1 = PhotoImage(file="xamodp.png")
     Label(window, image=pic1, bg="white").grid(row=0, column=5, sticky=E)
@@ -118,12 +158,7 @@ def main():
     # add a submit buttton
     bt = tk.Button(window, text="Submit", width="10", fg="Black", command=lambda: modExponent(x,a,p)).grid(row=7, column=0, sticky=E)
 
-   # result = modExponent(x, a, p)
-
-
-
-
-
+   # Create a textbox
 
     window.mainloop()
 
